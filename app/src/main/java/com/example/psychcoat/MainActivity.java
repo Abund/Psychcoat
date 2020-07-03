@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coat.model.User;
+import com.example.psychcoat.model.Psychologist;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -306,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             final DatabaseReference myRef = database.getReference("Users");
 
-            User user = new User();
+            Psychologist user = new Psychologist();
             user.setEmail(personEmail);
             user.setFirstName(personGivenName);
             user.setLastName(personFamilyName);
