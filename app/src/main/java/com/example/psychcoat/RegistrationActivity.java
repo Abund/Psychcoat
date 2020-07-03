@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.coat.model.User;
 import com.example.psychcoat.model.Psychologist;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -101,7 +100,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 //AccessToken accessToken = loginResult.getAccessToken();
                 AccessToken accessToken = loginResult.getAccessToken();
                 useLoginInformation(accessToken);
-                Intent at = new Intent(RegistrationPage.this, HomeScreen.class);
+                Intent at = new Intent(RegistrationActivity.this, HomeScreen.class);
                 startActivity(at);
             }
             @Override
@@ -137,7 +136,7 @@ public class RegistrationActivity extends AppCompatActivity {
         final DatabaseReference myRef = database.getReference("Users");
 
         if(firebaseAuth.getCurrentUser()!=null){
-            Intent at = new Intent(RegistrationPage.this, HomeScreen.class);
+            Intent at = new Intent(RegistrationActivity.this, HomeScreen.class);
             startActivity(at);
         }
 
