@@ -7,4 +7,21 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="facebook_app_id">802839733496941</string>
+    <string name="fb_login_protocol_scheme">fb802839733496941</string>
+
+
+    <string name="action_settings">Sign out</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="menu_personalPage">Personal Page</string>
+    <string name="menu_chats">Chats</string>
+    <string name="menu_chatRooms">Chat Rooms</string>
+    <string name="menu_blogPost">Blog Post</string>
+    <string name="menu_viewPsychologist">View Psychologist</string>
+    <string name="menu_logout">Log out</string>
 </resources>
