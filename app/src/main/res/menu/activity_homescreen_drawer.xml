@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_personalPage"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/menu_personalPage" />
+        <item
+            android:id="@+id/nav_chats"
+            android:icon="@drawable/ic_chat_black_24dp"
+            android:title="App Users" />
+        <item
+            android:id="@+id/nav_viewPsychologist"
+            android:icon="@drawable/ic_local_hospital_black_24dp"
+            android:title="@string/menu_viewPsychologist" />
+
+        <item
+            android:id="@+id/nav_chatList"
+            android:icon="@drawable/ic_forum_black_24dp"
+            android:title="Chat List" />
+        <item
+            android:id="@+id/nav_chatRooms"
+            android:icon="@drawable/ic_forum_black_24dp"
+            android:title="@string/menu_chatRooms" />
+
+        <item
+            android:id="@+id/sign_out"
+            android:icon="@drawable/ic_system_update_alt_black_24dp"
+            android:title="@string/menu_logout" />
+    </group>
+
+</menu>
