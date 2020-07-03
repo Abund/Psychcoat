@@ -87,8 +87,6 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         };
 
-
-
         // Creating CallbackManager
         callbackManager = CallbackManager.Factory.create();
 
@@ -133,7 +131,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("Users");
+        final DatabaseReference myRef = database.getReference("Psychologist");
 
         if(firebaseAuth.getCurrentUser()!=null){
             Intent at = new Intent(RegistrationActivity.this, HomeScreen.class);
@@ -253,6 +251,7 @@ public class RegistrationActivity extends AppCompatActivity {
             useLoginInformation(accessToken);
         }
     }
+
     public void onDestroy() {
         super.onDestroy();
         // We stop the tracking before destroying the activity
@@ -325,7 +324,7 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(RegistrationActivity.this,personFamilyName+"Registration Successful",Toast.LENGTH_SHORT).show();
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            final DatabaseReference myRef = database.getReference("Users");
+            final DatabaseReference myRef = database.getReference("Psychologist");
 
             Psychologist user = new Psychologist();
             user.setEmail(personEmail);
@@ -347,7 +346,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
             });
             myRef.keepSynced(true);
-
 
         }
 
