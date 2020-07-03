@@ -1,4 +1,4 @@
-package com.example.coat;
+package com.example.psychcoat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.coat.model.User;
 import com.example.psychcoat.model.Psychologist;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
