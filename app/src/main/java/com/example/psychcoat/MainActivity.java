@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         forgetPassword.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent at = new Intent(MainActivity.this, ForgetPassword.class);
+                Intent at = new Intent(MainActivity.this, ForgetPasswordActivity.class);
                 startActivity(at);
             }
         });
