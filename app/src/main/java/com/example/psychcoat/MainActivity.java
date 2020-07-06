@@ -316,6 +316,10 @@ public class MainActivity extends AppCompatActivity {
             user.setTypingTo("noOne");
             user.setImageUrl("");
             user.setCover("");
+            user.setAchievements("");
+            user.setSkills("");
+            user.setWorkExperience("");
+            user.setSchool("");
 
             myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

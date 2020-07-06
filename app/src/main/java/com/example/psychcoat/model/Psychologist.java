@@ -13,13 +13,16 @@ public class Psychologist {
     private String typingTo;
     private String imageUrl;
     private String cover;
+    private String workExperience;
+    private String school;
+    private String skills;
+    private String achievements;
     boolean isBlocked = false;
 
-    public Psychologist(){
-
+    public Psychologist() {
     }
 
-    public Psychologist(int userId, String firstName, String lastName, String email, String password, String uid, String onlineStatus, String typingTo, String imageUrl, String cover, boolean isBlocked) {
+    public Psychologist(int userId, String firstName, String lastName, String email, String password, String uid, String onlineStatus, String typingTo, String imageUrl, String cover, String workExperience, String school, String skills, String achievements, boolean isBlocked) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,6 +33,10 @@ public class Psychologist {
         this.typingTo = typingTo;
         this.imageUrl = imageUrl;
         this.cover = cover;
+        this.workExperience = workExperience;
+        this.school = school;
+        this.skills = skills;
+        this.achievements = achievements;
         this.isBlocked = isBlocked;
     }
 
@@ -111,6 +118,38 @@ public class Psychologist {
 
     public void setCover(String cover) {
         this.cover = cover;
+    }
+
+    public String getWorkExperience() {
+        return workExperience;
+    }
+
+    public void setWorkExperience(String workExperience) {
+        this.workExperience = workExperience;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
+
+    public String getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(String achievements) {
+        this.achievements = achievements;
     }
 
     public boolean isBlocked() {

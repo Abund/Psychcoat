@@ -136,6 +136,7 @@
                         android:textSize="25sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
                         android:text="None"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -156,13 +157,37 @@
                             android:textSize="25sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="None"/>
+                            android:text="None"
+                            android:inputType="textMultiLine"/>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="25sp"
+                            android:text="Achievement"
+                            />
+                        <TextView
+                            android:textSize="25sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="None"
+                            android:inputType="textMultiLine"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -177,27 +202,9 @@
                             android:textSize="25sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="None"/>
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="25sp"
-                            android:text="Achievement"/>
-                        <TextView
-                            android:textSize="25sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="None"/>
+                            android:text="None"
+                            android:maxLines="4"
+                            android:lines="4"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
