@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/messageLayout"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/profi"
+            android:visibility="gone"
+            app:c_background_color="@null"/>
+
+        <TextView
+            android:id="@+id/messageTime1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:59"/>
+        <TextView
+            android:id="@+id/messageTv"
+            android:textSize="16dp"
+            android:background="@drawable/bg_sender"
+            android:padding="15dp"
+            android:layout_alignParentEnd="true"
+            android:text="His Message"
+            android:layout_toEndOf="@+id/messageTime1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/messageTime1" />
+        <ImageView
+            android:id="@+id/messageIv"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:adjustViewBounds="true"
+            android:layout_alignParentEnd="true"
+            android:padding="15dp"
+            android:src="@drawable/ic_image_black"
+            android:scaleType="fitCenter"
+            android:background="@drawable/bg_sender"
+            android:layout_alignParentRight="true" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/isSeen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textAlignment="textEnd"
+        android:text="delivered"/>
+</LinearLayout>
