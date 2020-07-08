@@ -5,15 +5,17 @@ public class BookingSession {
     private String userId;
     private String psychologistId;
     private String status;
+    boolean isBlocked = false;
 
     public BookingSession() {
     }
 
-    public BookingSession(String time, String userId, String psychologistId, String status) {
+    public BookingSession(String time, String userId, String psychologistId, String status, boolean isBlocked) {
         this.time = time;
         this.userId = userId;
         this.psychologistId = psychologistId;
         this.status = status;
+        this.isBlocked = isBlocked;
     }
 
     public String getTime() {
@@ -46,5 +48,13 @@ public class BookingSession {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
     }
 }
