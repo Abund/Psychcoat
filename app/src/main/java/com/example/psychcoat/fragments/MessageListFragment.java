@@ -1,4 +1,4 @@
-package com.example.psychcoat;
+package com.example.psychcoat.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.psychcoat.MainActivity;
+import com.example.psychcoat.R;
 import com.example.psychcoat.adapter.AdapterChatList;
 import com.example.psychcoat.model.ChatList;
 import com.example.psychcoat.model.Chats;
@@ -138,7 +140,7 @@ public class MessageListFragment extends Fragment {
                     }
                     //adapter
                     adapterChatlist = new AdapterChatList(getContext(), userList);
-                    //setadapter
+                    //setAdapter
                     recyclerView.setAdapter(adapterChatlist);
                     //set last message
                     for (int i=0; i<userList.size(); i++){
