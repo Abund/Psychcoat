@@ -40,6 +40,30 @@
                 android:text="Person Email"
                 />
 
+            <TextView
+                android:id="@+id/statusP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Booked At: "
+                    />
+
+                <TextView
+                    android:id="@+id/BookedAt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
 
         <!--Add icons to indicate blocked/unblocked-->

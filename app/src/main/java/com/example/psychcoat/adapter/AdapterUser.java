@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.psychcoat.MessageActivity;
 import com.example.psychcoat.R;
+import com.example.psychcoat.model.BookingSession;
 import com.example.psychcoat.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,10 +38,12 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
 
     FirebaseAuth firebaseAuth;
     String myUid;
+    BookingSession bookingSession;
 
-    public AdapterUser(Context context, List<User> userList){
+    public AdapterUser(Context context, List<User> userList, BookingSession bookingSession){
         this.context=context;
         this.userList=userList;
+        this.bookingSession=bookingSession;
 
         firebaseAuth = FirebaseAuth.getInstance();
         myUid = firebaseAuth.getUid();
@@ -63,6 +66,8 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
 
         holder.nNameTv.setText(firstName+" "+lastName);
         holder.mEmailTv.setText(email);
+        holder.BookedAt.setText(bookingSession.getTime());
+        holder.statusP.setText(bookingSession.getStatus());
         try{
             Picasso.get().load(image)
                     .placeholder(R.drawable.ic_account_circle_black_24dp)
@@ -178,7 +183,6 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
     private void blockUser(String hisUID) {
         //block the user, by adding uid to current user's "BlockedUsers" node
 
-
         //put values in hasmap to put in db
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("uid", hisUID);
@@ -217,7 +221,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 //unblocked successfully
-                                                Toast.makeText(context, "Unbloked Successfully...", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "Unblocked Successfully...", Toast.LENGTH_SHORT).show();
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -241,7 +245,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
 
     class MyHolder extends RecyclerView.ViewHolder{
         ImageView mAvatar,blockIv;
-        TextView nNameTv,mEmailTv;
+        TextView nNameTv,mEmailTv,BookedAt,statusP;
 
         public MyHolder(@NonNull View itemView){
             super(itemView);
@@ -249,6 +253,8 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
             nNameTv= itemView.findViewById(R.id.nameTv);
             mEmailTv= itemView.findViewById(R.id.emailTv);
             blockIv = itemView.findViewById(R.id.blockIv);
+            statusP = itemView.findViewById(R.id.statusP);
+            BookedAt = itemView.findViewById(R.id.BookedAt);
         }
     }
 

@@ -217,13 +217,7 @@ public class MessageListFragment extends Fragment {
         //inflating menu
         inflater.inflate(R.menu.homescreen, menu);
         super.onCreateOptionsMenu(menu,inflater);
-        //hide addpost icon from this fragment
-//        menu.findItem(R.id.action_add_post).setVisible(false);
-//        menu.findItem(R.id.action_add_participant).setVisible(false);
-//        menu.findItem(R.id.action_groupinfo).setVisible(false);
-//        menu.findItem(R.id.action_create_group).setVisible(false);
-
-        super.onCreateOptionsMenu(menu, inflater);
+        menu.findItem(R.id.action_search).setVisible(false);
     }
 
     /*handle menu item clicks*/

@@ -13,12 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -48,15 +48,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.google.firebase.storage.FirebaseStorage.getInstance;
 
 public class ProfileFragment extends Fragment {
-
 
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -75,7 +72,6 @@ public class ProfileFragment extends Fragment {
 
     //progress dialog
     ProgressDialog progressDialog;
-
 
     //permissions constants
     private static final int CAMERA_REQUEST_CODE = 100;
@@ -654,5 +650,14 @@ public class ProfileFragment extends Fragment {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /*inflate options menu*/
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //inflating menu
+        inflater.inflate(R.menu.homescreen, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+        menu.findItem(R.id.action_search).setVisible(false);
     }
 }

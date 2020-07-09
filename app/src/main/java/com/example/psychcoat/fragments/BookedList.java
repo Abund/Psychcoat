@@ -69,29 +69,47 @@ public class BookedList extends Fragment {
 
     private void searchUser(final String query) {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Bookings");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
                 for(DataSnapshot ds:dataSnapshot.getChildren()){
-                    User user = ds.getValue(User.class);
 
+                    user1 = ds.getValue(BookingSession.class);
+                    if(!user1.getPsychologistId().equals(firebaseUser.getUid())){
+                        //userList.add(user);
 
-                    if(!user.getUid().equals(firebaseUser.getUid())){
+                        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Users");
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                userList.clear();
+                                for(DataSnapshot ds:dataSnapshot.getChildren()){
+                                    User user = new User();
+                                    user = ds.getValue(User.class);
+                                    if(!user.getUid().equals(user1.getUserId())){
+                                        if(user.getFirstName().toLowerCase().contains(query.toLowerCase())||
+                                                user.getLastName().toLowerCase().contains(query.toLowerCase())||
+                                                user.getEmail().toLowerCase().contains(query.toLowerCase())){
 
-                        if(user.getFirstName().toLowerCase().contains(query.toLowerCase())||
-                                user.getLastName().toLowerCase().contains(query.toLowerCase())||
-                                user.getEmail().toLowerCase().contains(query.toLowerCase())){
+                                            userList.add(user);
+                                        }
+                                    }
 
-                            userList.add(user);
-                        }
+                                    adapterUser = new AdapterUser(getActivity(),userList,user1);
+                                    recyclerView.setAdapter(adapterUser);
+                                }
+                            }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
 
-                    adapterUser = new AdapterUser(getActivity(),userList);
-                    adapterUser.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapterUser);
                 }
             }
 
@@ -128,7 +146,7 @@ public class BookedList extends Fragment {
                                         userList.add(user);
                                     }
 
-                                    adapterUser = new AdapterUser(getActivity(),userList);
+                                    adapterUser = new AdapterUser(getActivity(),userList,user1);
                                     recyclerView.setAdapter(adapterUser);
                                 }
                             }
