@@ -66,11 +66,10 @@ public class ProfileFragment extends Fragment {
     //storage
     StorageReference storageReference;
     //path where images of user profile and cover will be stored
-    String storagePath = "Users_Profile_Cover_Imgs/";
+    String storagePath = "Psychologist_Profile_Cover_Imgs/";
 
     //views from xml
     ImageView avatarIv, coverIv;
-    RecyclerView postsRecyclerView;
     private TextView firstNamePro,lastNamePro,addressPro,userNamePro,emailAddressPro;
     FloatingActionButton floatingActionButton;
 
