@@ -124,22 +124,24 @@ public class HomeFragment extends Fragment {
         updateProfile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-             Fragment newFragment =  new ProfileFragment();
-             replaceFragment(newFragment);
+                Fragment newFragment =  new ProfileFragment();
+                replaceFragment(newFragment);
             }
         });
 
         noOfActiveBookings.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
+                Fragment newFragment =  new ActiveBookingActivity();
+                replaceFragment(newFragment);
             }
         });
 
         noOfActiveChats.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
+                Fragment newFragment =  new MessageListFragment();
+                replaceFragment(newFragment);
             }
         });
 
