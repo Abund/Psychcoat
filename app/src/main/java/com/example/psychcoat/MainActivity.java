@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     password.setError("Password must be greater than 6 characters long");
                     return;
                 }
-                //authenticathe the user
+                //authenticate the user
                 firebaseAuth.signInWithEmailAndPassword(email1,password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

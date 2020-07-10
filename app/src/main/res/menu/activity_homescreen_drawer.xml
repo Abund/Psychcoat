@@ -12,6 +12,11 @@
             android:id="@+id/nav_personalPage"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/menu_personalPage" />
+
+        <item
+            android:id="@+id/nav_activeBookings"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="Actively Booked" />
         <item
             android:id="@+id/nav_chats"
             android:icon="@drawable/ic_chat_black_24dp"

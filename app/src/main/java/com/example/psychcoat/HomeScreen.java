@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.psychcoat.fragments.ActiveBookingActivity;
 import com.example.psychcoat.fragments.BookedList;
 import com.example.psychcoat.fragments.HomeFragment;
 import com.example.psychcoat.fragments.MessageListFragment;
@@ -421,7 +422,10 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         } if (id == R.id.nav_chatList) {
             Fragment newFragment =  new MessageListFragment();
             replaceFragment(newFragment);
-        }   if (id == R.id.sign_out) {
+        } if (id == R.id.nav_activeBookings) {
+            Fragment newFragment =  new ActiveBookingActivity();
+            replaceFragment(newFragment);
+        }    if (id == R.id.sign_out) {
             firebaseAuth = FirebaseAuth.getInstance();
             //LoginManager.getInstance().logOut();
             firebaseAuth.signOut();
