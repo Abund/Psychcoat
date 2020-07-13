@@ -67,7 +67,7 @@ public class ProfileFragment extends Fragment {
 
     //views from xml
     ImageView avatarIv, coverIv;
-    private TextView firstNamePro,lastNamePro,addressPro,userNamePro,emailAddressPro;
+    private TextView firstNamePro,lastNamePro,addressPro,userNamePro,emailAddressPro,workExperience,schoolExperience,achievement,skills;;
     FloatingActionButton floatingActionButton;
 
     //progress dialog
@@ -115,6 +115,10 @@ public class ProfileFragment extends Fragment {
         floatingActionButton = view.findViewById(R.id.actionUpdate);
         avatarIv = view.findViewById(R.id.avatarIv);
         coverIv = view.findViewById(R.id.coverIv);
+        workExperience= view.findViewById(R.id.workExperience);
+        schoolExperience= view.findViewById(R.id.schoolExperience);
+        achievement= view.findViewById(R.id.achievement);
+        skills= view.findViewById(R.id.skills);
 
         //init arrays of permissions
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -134,12 +138,21 @@ public class ProfileFragment extends Fragment {
                     String email =""+ ds.child("email").getValue();
                     String cover =""+ ds.child("cover").getValue();
                     String image =""+ ds.child("imageUrl").getValue();
+                    String workExperience1 =""+ ds.child("workExperience").getValue();
+                    String schoolExperience1 =""+ ds.child("school").getValue();
+                    String achievement1 =""+ ds.child("achievements").getValue();
+                    String skills1 =""+ ds.child("skills").getValue();
 
                     firstNamePro.setText(firstName);
                     lastNamePro.setText(lastName);
                     addressPro.setText(address);
                     userNamePro.setText(UserName);
                     emailAddressPro.setText(email);
+
+                    workExperience.setText(workExperience1);
+                    schoolExperience.setText(schoolExperience1);
+                    achievement.setText(achievement1);
+                    skills.setText(skills1);
 
                     try {
                         //if image is received then set
@@ -202,39 +215,39 @@ public class ProfileFragment extends Fragment {
                     progressDialog.setMessage("Updating Cover Photo");
                     profileOrCoverPhoto = "cover"; //i.e. changing cover photo, make sure to assign same value
                     showImagePicDialog();
-                }else if(i==0){
+                }else if(i==2){
                     progressDialog.setMessage("Updating first name");
                     showFirstNameUpdateDialogue("firstName");
 
-                }else if(i==1){
+                }else if(i==3){
                     progressDialog.setMessage("Updating last name");
                     showFirstNameUpdateDialogue("lastName");
 
-                }else if(i==2){
+                }else if(i==4){
                     progressDialog.setMessage("Updating address");
                     showFirstNameUpdateDialogue("address");
 
-                }else if(i==3){
+                }else if(i==5){
                     progressDialog.setMessage("Updating user name");
                     showFirstNameUpdateDialogue("userName");
 
-                }else if (i == 4) {
-                    //Edit Phone clicked
-                    progressDialog.setMessage("Changing Password");
-                    showChangePasswordDialog();
                 }else if (i == 5) {
                     //Edit Phone clicked
                     progressDialog.setMessage("Changing Password");
-                    showFirstNameUpdateDialogue("workExperience");
+                    showChangePasswordDialog();
                 }else if (i == 6) {
                     //Edit Phone clicked
                     progressDialog.setMessage("Changing Password");
-                    showFirstNameUpdateDialogue("school");
+                    showFirstNameUpdateDialogue("workExperience");
                 }else if (i == 7) {
                     //Edit Phone clicked
                     progressDialog.setMessage("Changing Password");
-                    showFirstNameUpdateDialogue("achievements");
+                    showFirstNameUpdateDialogue("school");
                 }else if (i == 8) {
+                    //Edit Phone clicked
+                    progressDialog.setMessage("Changing Password");
+                    showFirstNameUpdateDialogue("achievements");
+                }else if (i == 9) {
                     //Edit Phone clicked
                     progressDialog.setMessage("Changing Password");
                     showFirstNameUpdateDialogue("skills");

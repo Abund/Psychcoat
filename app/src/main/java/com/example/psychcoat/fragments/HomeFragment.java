@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -69,6 +70,7 @@ public class HomeFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        bookingSessionList = new ArrayList<>();
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Bookings");
@@ -79,13 +81,14 @@ public class HomeFragment extends Fragment {
                 for(DataSnapshot ds:dataSnapshot.getChildren()){
 
                     user1 = ds.getValue(BookingSession.class);
-                    if(!user1.getPsychologistId().equals(firebaseUser.getUid())){
-                        if(!user1.getStatus().equals("Booked")){
+                    if(user1.getPsychologistId().equals(firebaseUser.getUid())){
+                        if(user1.getStatus().equals("Booked")){
                             bookingSessionList.add(user1);
                         }
                     }
                 }
                 num=bookingSessionList.size();
+                noOfActiveBookings.setText(""+num);
             }
 
             @Override
@@ -103,13 +106,14 @@ public class HomeFragment extends Fragment {
                 for(DataSnapshot ds:dataSnapshot.getChildren()){
 
                     user1 = ds.getValue(BookingSession.class);
-                    if(!user1.getPsychologistId().equals(firebaseUser1.getUid())){
-                        if(!user1.getStatus().equals("Chatting")){
+                    if(user1.getPsychologistId().equals(firebaseUser1.getUid())){
+                        if(user1.getStatus().equals("chatting")){
                             bookingSessionList.add(user1);
                         }
                     }
                 }
                 sum=bookingSessionList.size();
+                noOfActiveChats.setText(""+sum);
             }
 
             @Override
@@ -118,8 +122,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        noOfActiveBookings.setText(""+num);
-        noOfActiveChats.setText(""+sum);
 
         updateProfile.setOnClickListener(new View.OnClickListener(){
             @Override

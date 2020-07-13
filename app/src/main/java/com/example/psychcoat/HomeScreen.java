@@ -115,6 +115,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
+        Fragment newFragment =  new HomeFragment();
+        replaceFragment(newFragment);
+
         profileName = navigationView.getHeaderView(0).findViewById(R.id.profileName);
         imageViewProfile = navigationView.getHeaderView(0).findViewById(R.id.imageViewProfile);
         //imageViewHomePageProfile = (ImageView) findViewById(R.id.imageViewHomePageProfile);

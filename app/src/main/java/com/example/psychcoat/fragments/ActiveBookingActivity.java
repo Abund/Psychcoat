@@ -135,20 +135,20 @@ public class ActiveBookingActivity extends Fragment {
                 for(DataSnapshot ds:dataSnapshot.getChildren()){
 
                     user1 = ds.getValue(BookingSession.class);
-                    if(!user1.getPsychologistId().equals(firebaseUser.getUid())){
+                    if(user1.getPsychologistId().equals(firebaseUser.getUid())){
                         //userList.add(user);
 
-                        if(!user1.getStatus().equals("Booked")){
-                            final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                            DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Users");
-                            reference.addValueEventListener(new ValueEventListener() {
+                        if(user1.getStatus().equals("Booked")){
+                            final FirebaseUser firebaseUser1 = FirebaseAuth.getInstance().getCurrentUser();
+                            DatabaseReference reference1= FirebaseDatabase.getInstance().getReference("Users");
+                            reference1.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     userList.clear();
                                     for(DataSnapshot ds:dataSnapshot.getChildren()){
-                                        User user = new User();
-                                        user = ds.getValue(User.class);
-                                        if(!user.getUid().equals(user1.getUserId())){
+                                        //User user = new User();
+                                        User user = ds.getValue(User.class);
+                                        if(user.getUid().equals(user1.getUserId())){
                                             userList.add(user);
                                         }
 

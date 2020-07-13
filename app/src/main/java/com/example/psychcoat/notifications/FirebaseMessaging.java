@@ -19,9 +19,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import com.example.coat.MessageActivity;
-import com.example.coat.PostDetailActivity;
-import com.example.coat.R;
+
+import com.example.psychcoat.MessageActivity;
+import com.example.psychcoat.PostDetailActivity;
+import com.example.psychcoat.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;

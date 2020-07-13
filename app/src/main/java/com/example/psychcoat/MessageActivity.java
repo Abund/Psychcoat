@@ -463,14 +463,14 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     private void checkOnlineStatus(String status){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(myUid);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Psychologist").child(myUid);
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("onlineStatus", status);
         databaseReference.updateChildren(hashMap);
     }
 
     private void checkTypingStatus(String typing){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(myUid);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Psychologist").child(myUid);
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("typingTo", typing);
         databaseReference.updateChildren(hashMap);
@@ -573,7 +573,7 @@ public class MessageActivity extends AppCompatActivity {
         databaseReference.child("Chats").push().setValue(hashMap);
 //        messageEt.setText("");
 //
-        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("Users").child(myUid);
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("Psychologist").child(myUid);
         databaseReference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
