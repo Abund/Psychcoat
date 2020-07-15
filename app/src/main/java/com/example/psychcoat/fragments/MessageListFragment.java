@@ -5,8 +5,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 import com.example.psychcoat.MainActivity;
 import com.example.psychcoat.R;
 import com.example.psychcoat.adapter.AdapterChatList;
+import com.example.psychcoat.model.BookingSession;
 import com.example.psychcoat.model.ChatList;
 import com.example.psychcoat.model.Chats;
 import com.example.psychcoat.model.User;
@@ -26,9 +29,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -55,6 +60,8 @@ public class MessageListFragment extends Fragment {
     DatabaseReference reference;
     FirebaseUser currentUser;
     AdapterChatList adapterChatlist;
+    private ArrayList<String> bloodPressureKey;
+    String timeStamp;
 
     public MessageListFragment() {
         // Required empty public constructor
@@ -97,6 +104,7 @@ public class MessageListFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        bloodPressureKey= new ArrayList<>();
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -131,20 +139,49 @@ public class MessageListFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    User user = ds.getValue(User.class);
+                    final User user = ds.getValue(User.class);
                     for (ChatList chatlist: chatlistList){
                         if (user.getUid() != null && user.getUid().equals(chatlist.getId())){
-                            userList.add(user);
+                            System.out.println("add--"+user.getUid());
+                            DatabaseReference reference1= FirebaseDatabase.getInstance().getReference("Bookings");
+                            reference1.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    //userList.clear();
+                                    for(DataSnapshot ds:dataSnapshot.getChildren()){
+                                        BookingSession bookingSession = ds.getValue(BookingSession.class);
+                                        bloodPressureKey.add(ds.getKey());
+                                        //userList.add(user);
+                                        if(bookingSession.getUserId().equals(user.getUid())){
+                                            if(bookingSession.getStatus().equals("chatting")){
+                                                System.out.println("add"+user.getUid());
+                                                userList.add(user);
+                                                timeStamp=bookingSession.getTimeStamp();
+                                            }else {
+
+                                            }
+
+                                        }
+                                    }
+                                    //adapter
+                                    adapterChatlist = new AdapterChatList(getContext(), userList,timeStamp);
+                                    new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
+                                    //setAdapter
+                                    recyclerView.setAdapter(adapterChatlist);
+                                    recyclerView.invalidate();
+                                    //set last message
+                                    for (int i=0; i<userList.size(); i++){
+                                        lastMessage(userList.get(i).getUid());
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                             break;
                         }
-                    }
-                    //adapter
-                    adapterChatlist = new AdapterChatList(getContext(), userList);
-                    //setAdapter
-                    recyclerView.setAdapter(adapterChatlist);
-                    //set last message
-                    for (int i=0; i<userList.size(); i++){
-                        lastMessage(userList.get(i).getUid());
                     }
                 }
             }
@@ -240,4 +277,26 @@ public class MessageListFragment extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback= new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT|ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
+
+            DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference().child("Bookings")
+                    .child(bloodPressureKey.get(viewHolder.getAdapterPosition()));
+
+            Log.e("eee2",""+viewHolder.getAdapterPosition());
+            HashMap<String,Object> hashMap= new HashMap<>();
+            hashMap.put("status", "deleted");
+
+            databaseReference.getRef().updateChildren(hashMap);
+            loadChats();
+        }
+    };
+
 }
