@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -247,14 +250,104 @@ public class MessageListFragment extends Fragment {
         }
     }
 
-
     /*inflate options menu*/
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflating menu
         inflater.inflate(R.menu.homescreen, menu);
         super.onCreateOptionsMenu(menu,inflater);
-        menu.findItem(R.id.action_search).setVisible(false);
+        menu.findItem(R.id.action_search).setVisible(true);
+        MenuItem item = menu.findItem(R.id.action_search);
+
+        SearchView searchView= (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(!TextUtils.isEmpty(query.trim())){
+                    searchUser(query);
+                }else {
+                    loadChats();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(!TextUtils.isEmpty(newText.trim())){
+                    searchUser(newText);
+                }else {
+                    loadChats();
+                }
+                return false;
+            }
+        });
+    }
+
+    private void searchUser(final String query) {
+        userList = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userList.clear();
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    final User user = ds.getValue(User.class);
+                    for (ChatList chatlist: chatlistList){
+                        if (user.getUid() != null && user.getUid().equals(chatlist.getId())){
+                            System.out.println("add--"+user.getUid());
+                            DatabaseReference reference1= FirebaseDatabase.getInstance().getReference("Bookings");
+                            reference1.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    //userList.clear();
+                                    for(DataSnapshot ds:dataSnapshot.getChildren()){
+                                        BookingSession bookingSession = ds.getValue(BookingSession.class);
+                                        bloodPressureKey.add(ds.getKey());
+                                        //userList.add(user);
+                                        if(bookingSession.getUserId().equals(user.getUid())){
+                                            if(bookingSession.getStatus().equals("chatting")){
+
+                                                if(user.getFirstName().toLowerCase().contains(query.toLowerCase())||
+                                                        user.getLastName().toLowerCase().contains(query.toLowerCase())||
+                                                        user.getEmail().toLowerCase().contains(query.toLowerCase())){
+
+                                                    userList.add(user);
+                                                    timeStamp=bookingSession.getTimeStamp();
+                                                }
+                                            }else {
+
+                                            }
+
+                                        }
+                                    }
+                                    //adapter
+                                    adapterChatlist = new AdapterChatList(getContext(), userList,timeStamp);
+                                    new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
+                                    //setAdapter
+                                    recyclerView.setAdapter(adapterChatlist);
+                                    recyclerView.invalidate();
+                                    //set last message
+                                    for (int i=0; i<userList.size(); i++){
+                                        lastMessage(userList.get(i).getUid());
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     /*handle menu item clicks*/
@@ -266,14 +359,6 @@ public class MessageListFragment extends Fragment {
             firebaseAuth.signOut();
             checkUserStatus();
         }
-//        else if (id==R.id.action_settings){
-//            //go to settings activity
-//            startActivity(new Intent(getActivity(), SettingsActivity.class));
-//        }
-//        else if (id==R.id.action_create_group){
-//            //go to GroupCreateActivity activity
-//            startActivity(new Intent(getActivity(), GroupCreateActivity.class));
-//        }
 
         return super.onOptionsItemSelected(item);
     }

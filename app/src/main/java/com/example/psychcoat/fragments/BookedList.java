@@ -48,6 +48,7 @@ public class BookedList extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
     }
 
@@ -175,10 +176,7 @@ public class BookedList extends Fragment {
 
         //menu.findItem(R.id.action_add_post).setVisible(false);
         MenuItem item = menu.findItem(R.id.action_search);
-//        menu.findItem(R.id.action_add_post).setVisible(false);
-//        menu.findItem(R.id.action_add_participant).setVisible(false);
-//        menu.findItem(R.id.action_groupinfo).setVisible(false);
-//        menu.findItem(R.id.action_create_group).setVisible(false);
+        menu.findItem(R.id.action_search).setVisible(true);
         SearchView searchView= (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
