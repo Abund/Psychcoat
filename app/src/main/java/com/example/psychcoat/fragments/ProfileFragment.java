@@ -137,7 +137,7 @@ public class ProfileFragment extends Fragment {
                     String UserName =""+ ds.child("userName").getValue();
                     String email =""+ ds.child("email").getValue();
                     String cover =""+ ds.child("cover").getValue();
-                    String image =""+ ds.child("imageUrl").getValue();
+                    String image =""+ ds.child("image").getValue();
                     String workExperience1 =""+ ds.child("workExperience").getValue();
                     String schoolExperience1 =""+ ds.child("school").getValue();
                     String achievement1 =""+ ds.child("achievements").getValue();
@@ -145,7 +145,7 @@ public class ProfileFragment extends Fragment {
 
                     firstNamePro.setText(firstName);
                     lastNamePro.setText(lastName);
-                    addressPro.setText(address);
+                    addressPro.setText(email);
                     userNamePro.setText(UserName);
                     emailAddressPro.setText(email);
 
@@ -158,11 +158,15 @@ public class ProfileFragment extends Fragment {
                         //if image is received then set
                         //Picasso.get().load(image).into(avatarIv);
 
-                        if(image==""){
-                            Picasso.get().load(R.drawable.ic_default_img).into(avatarIv);
-                        }else {
-                            Picasso.get().load(image).into(avatarIv);
-                        }
+//                        if(image==""){
+//                            Picasso.get().load(R.drawable.ic_default_img).into(avatarIv);
+//                        }else {
+//                            Picasso.get().load(image).into(avatarIv);
+//                        }
+
+                        Picasso.get().load(image)
+                                .placeholder(R.drawable.ic_account_circle_black_24dp)
+                                .into(avatarIv);
                     } catch (Exception e) {
                         //if there is any exception while getting image then set default
                         Picasso.get().load(R.drawable.ic_account_circle_black_24dp).into(avatarIv);

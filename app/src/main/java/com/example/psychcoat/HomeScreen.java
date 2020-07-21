@@ -35,6 +35,7 @@ import com.example.psychcoat.fragments.BookedList;
 import com.example.psychcoat.fragments.HomeFragment;
 import com.example.psychcoat.fragments.MessageListFragment;
 import com.example.psychcoat.fragments.ProfileFragment;
+import com.example.psychcoat.model.Psychologist;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -49,8 +50,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.google.firebase.storage.FirebaseStorage.getInstance;
 
@@ -126,6 +130,47 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> keys = new ArrayList<>();
+                Psychologist user= new Psychologist();
+                user=dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).getValue(Psychologist.class);
+                profileName.setText(user.getFirstName()+" "+user.getLastName());
+                final Psychologist finalUser = user;
+//                Picasso.get().load(user.getImageUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(imageViewProfile, new Callback() {
+//                    @Override
+//                    public void onSuccess() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Exception e) {
+//                        Picasso.get().load(finalUser.getImageUrl()).into(imageViewProfile);
+//                    }
+//                });
+
+                try {
+                    //if image is received then set
+
+                    if(user.getImageUrl()==""){
+                        Picasso.get().load(R.drawable.ic_default_img).into(imageViewProfile);
+                    }else {
+                        Picasso.get().load(user.getImageUrl()).into(imageViewProfile);
+                    }
+
+                } catch (Exception e) {
+                    //if there is any exception while getting image then set default
+                    //Picasso.get().load(R.drawable.ic_default_img).into(imageViewProfile);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(HomeScreen.this,"Oppss... something went wrong",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         imageViewProfile.setOnClickListener(new View.OnClickListener(){
             @Override

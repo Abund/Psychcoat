@@ -102,7 +102,7 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyHold
 //                Toast.makeText(context,""+email,Toast.LENGTH_SHORT).show();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setItems(new String[]{"Chat", "Delete"}, new DialogInterface.OnClickListener() {
+                builder.setItems(new String[]{"Chat"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(i==0){
