@@ -11,7 +11,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.psychcoat.model.Psychologist;
@@ -56,6 +58,8 @@ public class RegistrationActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     EditText firstName,lastName,email,password;
     SignInButton signInButton;
+    TextView termsAndConditions;
+    CheckBox checkBox;
     GoogleSignInClient mGoogleSignInClient;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
@@ -70,6 +74,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         signUp = (Button) findViewById(R.id.signup);
+        checkBox = (CheckBox) findViewById(R.id.checkBoxTerms);
+        termsAndConditions= (TextView) findViewById(R.id.termsAndConditionsText);
         firstName = (EditText) findViewById(R.id.firstName);
         lastName = (EditText) findViewById(R.id.lastName);
         email = (EditText) findViewById(R.id.email);
@@ -159,45 +165,51 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
-                // register the user in firebase
-                firebaseAuth.createUserWithEmailAndPassword(email1,password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-
-                            Psychologist user = new Psychologist();
-                            user.setEmail(email.getText().toString().trim());
-                            user.setFirstName(firstName.getText().toString().trim());
-                            user.setLastName(lastName.getText().toString().trim());
-                            user.setUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                            String timeStamp= String.valueOf(System.currentTimeMillis());
-                            user.setOnlineStatus(timeStamp);
-                            user.setTypingTo("noOne");
-                            user.setImageUrl("");
-                            user.setCover("");
-                            user.setAchievements("");
-                            user.setSkills("");
-                            user.setWorkExperience("");
-                            user.setSchool("");
-
-                            myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(RegistrationActivity.this,"Registration successful",Toast.LENGTH_SHORT).show();
-                                    Intent at = new Intent(RegistrationActivity.this, HomeScreen.class);
-                                    startActivity(at);
-                                }
-                            });
-                            myRef.keepSynced(true);
 
 
+                if(checkBox.isChecked()){
+                    // register the user in firebase
+                    firebaseAuth.createUserWithEmailAndPassword(email1,password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
 
-                        }else{
-                            System.out.println(task.getException());
-                            Toast.makeText(RegistrationActivity.this,"Error in registration",Toast.LENGTH_SHORT).show();
+                                Psychologist user = new Psychologist();
+                                user.setEmail(email.getText().toString().trim());
+                                user.setFirstName(firstName.getText().toString().trim());
+                                user.setLastName(lastName.getText().toString().trim());
+                                user.setUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                String timeStamp= String.valueOf(System.currentTimeMillis());
+                                user.setOnlineStatus(timeStamp);
+                                user.setTypingTo("noOne");
+                                user.setImageUrl("");
+                                user.setCover("");
+                                user.setAchievements("");
+                                user.setSkills("");
+                                user.setWorkExperience("");
+                                user.setSchool("");
+
+                                myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(RegistrationActivity.this,"Registration successful",Toast.LENGTH_SHORT).show();
+                                        Intent at = new Intent(RegistrationActivity.this, HomeScreen.class);
+                                        startActivity(at);
+                                    }
+                                });
+                                myRef.keepSynced(true);
+
+
+
+                            }else{
+                                System.out.println(task.getException());
+                                Toast.makeText(RegistrationActivity.this,"Error in registration",Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }else {
+                    Toast.makeText(RegistrationActivity.this,"Terms and Conditions must be Checked and accepted",Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
