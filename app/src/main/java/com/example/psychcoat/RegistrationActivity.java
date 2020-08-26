@@ -159,21 +159,16 @@ public class RegistrationActivity extends AppCompatActivity {
                     password.setError("Password is required");
                     return;
                 }
-
-                if(password1.length()<6){
-                    password.setError("Password must be greater than 6 characters long");
+                if(password1.length()<8){
+                    password.setError("Password must be greater than 8 characters long");
                     return;
                 }
-
-
-
                 if(checkBox.isChecked()){
                     // register the user in firebase
                     firebaseAuth.createUserWithEmailAndPassword(email1,password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-
                                 Psychologist user = new Psychologist();
                                 user.setEmail(email.getText().toString().trim());
                                 user.setFirstName(firstName.getText().toString().trim());
@@ -188,7 +183,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                 user.setSkills("");
                                 user.setWorkExperience("");
                                 user.setSchool("");
-
                                 myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -198,9 +192,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                     }
                                 });
                                 myRef.keepSynced(true);
-
-
-
                             }else{
                                 System.out.println(task.getException());
                                 Toast.makeText(RegistrationActivity.this,"Error in registration",Toast.LENGTH_SHORT).show();
@@ -210,7 +201,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 }else {
                     Toast.makeText(RegistrationActivity.this,"Terms and Conditions must be Checked and accepted",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -315,7 +305,12 @@ public class RegistrationActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            updateUI(user);
+                            if (task.getResult().getAdditionalUserInfo().isNewUser()){
+                                updateUI(user);
+                            }else{
+                                Intent at = new Intent(RegistrationActivity.this, HomeScreen.class);
+                                startActivity(at);
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

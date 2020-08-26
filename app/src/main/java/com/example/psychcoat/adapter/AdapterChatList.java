@@ -58,10 +58,11 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyHold
         final String hisUid = userList.get(i).getUid();
         String userImage = userList.get(i).getImageUrl();
         String userName = userList.get(i).getFirstName();
+        String lastName = userList.get(i).getLastName();
         String lastMessage = lastMessageMap.get(hisUid);
 
         //set data
-        myHolder.nameTv.setText(userName);
+        myHolder.nameTv.setText(userName+" "+lastName);
         if (lastMessage==null || lastMessage.equals("default")){
             myHolder.lastMessageTv.setVisibility(View.GONE);
         }
